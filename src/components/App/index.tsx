@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -18,7 +18,7 @@ const App = () => {
       <div>
         <Navigation />
         <hr />  
-        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route exact path={ROUTES.LANDING} component={LandingPage} render={() => <Redirect to={ROUTES.SIGN_UP}/> }/>
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.SIGN_IN} component={SignInPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
