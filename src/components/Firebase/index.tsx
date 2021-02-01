@@ -1,4 +1,5 @@
-import React from 'react';
 import Firebase from './firebase';
+import FirebaseContext from './context';
 
+export { FirebaseContext };
 export default Firebase;

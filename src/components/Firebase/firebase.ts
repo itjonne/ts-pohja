@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import "firebase/database";
+import "firebase/auth";
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,15 +16,43 @@ const config = {
 console.log(config);
 
 class Firebase {
-  private database;
+  private database: firebase.database.Database;
+  private auth: firebase.auth.Auth;
 
   constructor() {
     firebase.initializeApp(config);
     this.database = firebase.database();
+    this.auth = firebase.auth();
+  }
+
+  // ============ Auth API ==============
+
+  // Create user
+  createUserWithEmailAndPassword = (email: string, password: string) => {
+    return this.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  // Sign in
+  signInWithEmailAndPassword = (email: string, password: string) => {
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  // Sign out
+  signOut = () => {
+    return this.auth.signOut;
+  }
+
+  passwordReset = (email: string) => {
+    return this.auth.sendPasswordResetEmail(email);
+  }
+ 
+  passwordUpdate = (password: string) => {
+    if (this.auth.currentUser) {
+      return this.auth.currentUser.updatePassword(password);
+    }
   }
 
   // Database API
-
   getUsers = () => this.database.ref("/users");
 }
 
